@@ -1,0 +1,38 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.besiktasshipyard.mobile.btys.fragments.welcome.WelcomeFragment"
+        >
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Hoşgeldiniz, lütfen sol üstteki menüden seçim yapınız"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="right"
+        />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="470dp"
+        app:srcCompat="@drawable/company_logo"
+        android:layout_marginLeft="@dimen/layout_default_margin"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="@dimen/layout_default_margin"
+        android:scaleType="fitCenter"
+        android:alpha="0.5"
+        app:layout_constraintTop_toTopOf="@id/textView"
+        android:layout_marginTop="@dimen/layout_default_margin" />
+</android.support.constraint.ConstraintLayout>

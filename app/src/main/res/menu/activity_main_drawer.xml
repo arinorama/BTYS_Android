@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_camera"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Import" />
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Gallery" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Slideshow" />
+        <item
+            android:id="@+id/nav_manage"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Tools" />
+    </group -->
+
+    <item
+        android:id="@+id/nav_my_profile"
+        android:icon="@drawable/ic_person_black_24dp"
+        android:title="@string/my_profile" />
+    <item android:title="@string/repair">
+        <menu>
+        <item
+            android:id="@+id/nav_repair_projects"
+            android:icon="@drawable/ic_build_black_24dp"
+            android:title="@string/projects" />
+        </menu>
+    </item>
+    <item android:title="@string/hr">
+        <menu>
+            <item
+                android:id="@+id/nav_userlist"
+                android:icon="@drawable/ic_people_black_24dp"
+                android:title="@string/user_list" />
+            <item
+                android:id="@+id/nav_contractor_worker_list"
+                android:icon="@drawable/ic_build_black_24dp"
+                android:title="@string/contractor_worker_list" />
+            <item
+                android:id="@+id/nav_vehiclelist"
+                android:icon="@drawable/ic_directions_car_black_24dp"
+                android:title="@string/vehicle_list" />
+            <!-- item
+                android:id="@+id/nav_test"
+                android:title="@string/test_fragment" / -->
+        </menu>
+    </item>
+    <item android:title="@string/reports">
+        <menu>
+            <item
+                android:id="@+id/nav_reports"
+                android:icon="@drawable/ic_people_black_24dp"
+                android:title="@string/reports" />
+        </menu>
+    </item>
+
+</menu>

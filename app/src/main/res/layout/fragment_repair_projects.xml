@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    >
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        >
+
+        <!-- Bir kartin layoutu -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/cardview_padding"
+            android:paddingLeft="@dimen/cardview_padding"
+            android:paddingRight="@dimen/cardview_padding"
+            android:paddingTop="@dimen/cardview_padding"
+            >
+
+            <!-- Proje Kodu -->
+            <TextView
+                android:id="@+id/fragment_repair_projects_project_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:text="@string/project_code"
+                tools:ignore="HardcodedText" />
+
+            <!-- Proje Adı -->
+            <TextView
+                android:id="@+id/fragment_repair_projects_project_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fragment_repair_projects_project_code"
+                android:text="@string/project_desc"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+
+            <!-- Proje Mühendisi -->
+            <Button
+                android:id="@+id/fragment_repair_projects_engineer_name_surname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fragment_repair_projects_project_desc"
+                android:text="@string/project_eng"
+                android:textSize="10sp"
+                android:textAllCaps="false"
+                android:minHeight="40sp"
+                android:drawableLeft="@drawable/ic_person_black_24dp"
+                />
+
+            <!-- Üretim Koordinatörü -->
+            <Button
+                android:id="@+id/fragment_repair_projects_prd_coo_name_surname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fragment_repair_projects_engineer_name_surname"
+                android:text="@string/prod_coo"
+                android:textSize="10sp"
+                android:textAllCaps="false"
+                android:minHeight="40sp"
+                android:drawableLeft="@drawable/ic_person_black_24dp"
+                />
+
+            <!-- Tahmini Başlangıç Tarihi -->
+            <TextView
+                android:id="@+id/fragment_repair_projects_estimated_start_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fragment_repair_projects_prd_coo_name_surname"
+                android:text="@string/estimated_start_date"
+                tools:ignore="HardcodedText" />
+
+            <!-- Tahmini Bitiş Tarihi -->
+            <TextView
+                android:id="@+id/fragment_repair_projects_estimated_finish_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fragment_repair_projects_estimated_start_date"
+                android:text="@string/estimated_finish_date"
+                tools:ignore="HardcodedText"
+                android:paddingTop="6sp"
+                />
+
+            <!-- Gerçekleşen Başlangıç Tarihi -->
+            <TextView
+                android:id="@+id/fragment_repair_projects_actual_start_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fragment_repair_projects_estimated_finish_date"
+                android:text="@string/actual_start_date"
+                tools:ignore="HardcodedText"
+                android:paddingTop="6sp"
+                />
+
+            <!-- Gerçekleşen Bitiş Tarihi -->
+            <TextView
+                android:id="@+id/fragment_repair_projects_actual_finish_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fragment_repair_projects_actual_start_date"
+                android:text="@string/actual_finish_date"
+                tools:ignore="HardcodedText"
+                android:paddingTop="6sp"
+                />
+
+            <!-- Durum -->
+            <TextView
+                android:id="@+id/fragment_repair_projects_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fragment_repair_projects_actual_finish_date"
+                android:text="@string/status"
+                tools:ignore="HardcodedText"
+                android:paddingTop="6sp"
+                />
+
+            <!-- Açılan İş Emri Sayısı -->
+            <Button
+                android:id="@+id/fragment_repair_projects_work_order_count_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fragment_repair_projects_status"
+                android:text="@string/work_order_count_total"
+                android:textSize="10sp"
+                android:textAllCaps="false"
+                android:minHeight="40sp"
+                android:drawableLeft="@drawable/ic_list"
+                />
+
+            <!-- Tamamlanan İş Emri Sayısı -->
+            <Button
+                android:id="@+id/fragment_repair_projects_work_order_count_finished"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fragment_repair_projects_work_order_count_total"
+                android:text="@string/work_order_count_fiinshed"
+                android:textSize="10sp"
+                android:textAllCaps="false"
+                android:minHeight="40sp"
+                android:drawableLeft="@drawable/ic_check"
+                />
+
+            <!-- Malzeme Maliyeti -->
+            <Button
+                android:id="@+id/fragment_repair_projects_material_price_tl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fragment_repair_projects_work_order_count_finished"
+                android:text="@string/material_price_tl"
+                android:textSize="10sp"
+                android:textAllCaps="false"
+                android:minHeight="40sp"
+                android:drawableLeft="@drawable/ic_baseline_attach_money_24px"
+                />
+
+            <TextView
+                android:id="@+id/to_be_continued"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fragment_repair_projects_material_price_tl"
+                android:text="diger maliyet kalemleri de listeye eklenmek uzere hazirlaniyor.."
+                tools:ignore="HardcodedText" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

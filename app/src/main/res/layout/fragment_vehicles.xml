@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    >
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        >
+
+        <!-- Bir kartin layoutu -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/cardview_padding"
+            android:paddingLeft="@dimen/cardview_padding"
+            android:paddingRight="@dimen/cardview_padding"
+            android:paddingTop="@dimen/cardview_padding">
+
+            <!-- Marka - Model -->
+            <TextView
+                android:id="@+id/fragment_vehicles_mark_model"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:text="Marka - Model"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+
+            <!-- Plaka -->
+            <TextView
+                android:id="@+id/fragment_vehicles_plate_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fragment_vehicles_mark_model"
+                android:text="Plaka:"
+                tools:ignore="HardcodedText" />
+
+            <!-- Durum -->
+            <TextView
+                android:id="@+id/fragment_vehicles_vehicle_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fragment_vehicles_plate_number"
+                android:text="Durum:-"
+                tools:ignore="HardcodedText" />
+
+            <!-- Kimde - Su Anki Surucu - Son Surucu-->
+            <TextView
+                android:id="@+id/fragment_vehicles_vehicle_driver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fragment_vehicles_vehicle_status"
+                android:text="Kimde"
+                tools:ignore="HardcodedText" />
+            <!-- Son Çıkış Tarihi -->
+            <TextView
+                android:id="@+id/fragment_vehicles_last_exit_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fragment_vehicles_vehicle_driver"
+                android:text="Çıkış Tarihi"
+                tools:ignore="HardcodedText" />
+            <!-- Son Giriş Tarihi -->
+            <TextView
+                android:id="@+id/fragment_vehicles_last_enter_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fragment_vehicles_last_exit_date"
+                android:text="Giriş Tarihi"
+                tools:ignore="HardcodedText" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>
