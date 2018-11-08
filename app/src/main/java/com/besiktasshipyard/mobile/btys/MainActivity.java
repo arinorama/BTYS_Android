@@ -1,5 +1,5 @@
 package com.besiktasshipyard.mobile.btys;
-//test commit
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity
 
     public static final int LOGIN_REQUEST = 1;
     public static View _mainView;
-//
+//   test commit 2
 //    private final boolean FRAGMENT_CREATE_NEW = true;
 //    private final boolean FRAGMENT_CREATE_NEW_OR_EXISTING = false;
 //
