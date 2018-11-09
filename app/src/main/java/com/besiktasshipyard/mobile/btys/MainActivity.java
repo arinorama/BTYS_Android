@@ -29,6 +29,7 @@ import android.widget.TextView;
 import com.besiktasshipyard.mobile.btys.busEvents.onGetUserPhoto;
 import com.besiktasshipyard.mobile.btys.businessLayer.dataItems.contractorWorkers.ContractorWorkerListData;
 import com.besiktasshipyard.mobile.btys.businessLayer.dataItems.repairProjectsList.RepairProjectsListData;
+import com.besiktasshipyard.mobile.btys.businessLayer.dataItems.reports.GenericReportResultData;
 import com.besiktasshipyard.mobile.btys.businessLayer.dataItems.userList.UserListData;
 import com.besiktasshipyard.mobile.btys.businessLayer.dataItems.vehicleList.VehicleListData;
 import com.besiktasshipyard.mobile.btys.businessLayer.hr.HRUsers;
@@ -38,6 +39,7 @@ import com.besiktasshipyard.mobile.btys.fragments.hr.users.UserDetailsFragment;
 import com.besiktasshipyard.mobile.btys.fragments.hr.users.UsersFragment;
 import com.besiktasshipyard.mobile.btys.fragments.hr.vehicles.VehicleListFragment;
 import com.besiktasshipyard.mobile.btys.fragments.repair.projects.RepairProjectsListFragment;
+import com.besiktasshipyard.mobile.btys.fragments.reports.GenericReportResultFragment;
 import com.besiktasshipyard.mobile.btys.fragments.reports.ReportsMainActivity;
 import com.besiktasshipyard.mobile.btys.fragments.welcome.WelcomeFragment;
 import com.besiktasshipyard.mobile.btys.helpers.ApplicationErrorData;
@@ -51,6 +53,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity
@@ -62,6 +65,7 @@ public class MainActivity extends AppCompatActivity
         , VehicleListFragment.OnListFragmentInteractionListener
         , RepairProjectsListFragment.OnListFragmentInteractionListener
         , WelcomeFragment.OnFragmentInteractionListener
+        , GenericReportResultFragment.OnListFragmentInteractionListener
 
 //        , Test1Fragment.OnFragmentInteractionListener
 //        , Test2Fragment.OnFragmentInteractionListener
@@ -137,6 +141,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onListFragmentInteraction(RepairProjectsListData.RepairProjectsListItem item) {
+
+    }
+
+    @Override
+    public void onListFragmentInteraction(GenericReportResultData.GenericReportResultItem item) {
 
     }
 
@@ -255,7 +264,7 @@ public class MainActivity extends AppCompatActivity
      * yeni aktivite yaratıp gösterir
      * @param activityClass
      */
-    private void displayActivity(Class activityClass, boolean addToBackStack){
+    public void displayActivity(Class activityClass, boolean addToBackStack){
         Intent _intentNewActivity = new Intent(this, activityClass);
 //        if (!addToBackStack)
 //            _intentNewActivity.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
@@ -263,6 +272,49 @@ public class MainActivity extends AppCompatActivity
         startActivity(_intentNewActivity);
     }
 
+    /**
+     * yeni aktivite yaratıp gösterir
+     * @param activityClass
+     * @param params
+     */
+    /*public void displayActivity(Class activityClass, boolean addToBackStack, HashMap<String, String> params){
+        Intent _intentNewActivity = new Intent(this, activityClass);
+//        if (!addToBackStack)
+//            _intentNewActivity.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
+        if(!params.isEmpty()) {
+            Bundle _paramsBundle = new Bundle();
+            for (Map.Entry<String, String> param : params.entrySet()) {
+                String _paramName = param.getKey();
+                String _paramValue = param.getValue();
+                _paramsBundle.putString(_paramName, _paramValue);
+            }
+            _intentNewActivity.putExtras(_paramsBundle);
+        }
+
+        startActivity(_intentNewActivity);
+    }*/
+
+    public void displayGenericReportPage(String pid, String aid, HashMap<String,String> reportParams, String reportTitle, int containerViewId){
+        /*
+        GenericReportResultFragment fragment = GenericReportResultFragment.newInstance(true, this, reportTitle, pid, aid, reportParams);
+
+        ApplicationHelpers.hideSoftKeyboard(this);
+        FragmentManager _fragmentManager = getSupportFragmentManager();
+        FragmentTransaction _fragmentTransaction = _fragmentManager.beginTransaction();
+
+        _fragmentTransaction.replace(containerViewId, fragment);
+        _fragmentTransaction.addToBackStack(fragment.getClass().getName());
+        _fragmentTransaction.commit();*/
+        //--
+        Class fragmentClass = GenericReportResultFragment.class;
+        Fragment frg = getExistingFragment(fragmentClass);
+        if(frg == null)
+            frg = GenericReportResultFragment.newInstance(true, this, reportTitle, pid, aid, reportParams);
+
+        showNewFragment(frg, fragmentClass);
+        //--
+    }
     /**
      * yeni aktivite yaratip aktiviteden sonuc berkler
      * sonuc: onActivityResult metodunda handle edilir

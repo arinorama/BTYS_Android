@@ -4,11 +4,11 @@ import android.content.Context;
 import android.view.View;
 
 import com.besiktasshipyard.mobile.btys.busEvents.iBusEvent;
+import com.besiktasshipyard.mobile.btys.busEvents.onGetGenericReportResultData;
 import com.besiktasshipyard.mobile.btys.busEvents.onGetReportListData;
 import com.besiktasshipyard.mobile.btys.helpers.ApplicationErrorData;
 import com.besiktasshipyard.mobile.btys.helpers.ApplicationHelpers;
 import com.besiktasshipyard.mobile.btys.helpers.DataService;
-import com.besiktasshipyard.mobile.btys.busEvents.onGetGenericReportResultData;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -16,7 +16,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Created by aliarin on 20.7.2017.
@@ -154,6 +157,47 @@ public class Reports {
 
         try {
             _dataJSON.put("report_id", reportId);
+        } catch (JSONException e) {
+            ApplicationHelpers.getInstance(_context).handleError(
+                    new ApplicationErrorData(ApplicationErrorData.ApplicationErrorType.JSON_ERROR, "", this.getClass().getName() + " : Reports: getGenericReportResult: Hata: JSON hatasi")
+            );
+        }
+        _urlParams = _dataJSON.toString();
+
+        _dataService.execDataService (_aid, _pid, _urlParams, new onGetGenericReportResultData());
+    }
+
+    /**
+     * herhangi bir rapor calistirir.
+     * @param busEvent rapor sonucunun donecegi callback fonk.
+     * @param pid rapor sayfasinin pid i
+     * @param aid rapor sayfasinin aid i
+     */
+    public void getGenericReportResult(iBusEvent busEvent, String pid, String aid, HashMap<String,String> reportParams){
+
+
+        //event busa kaydol
+        if(!EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().register(this);
+
+        genericReportBusEvent = busEvent;
+
+        String _aid=aid, _pid=pid, _urlParams="";
+        DataService _dataService = new DataService(_context);
+
+
+        JSONObject _dataJSON = new JSONObject();
+
+        try {
+            //reportParams ile gonderilen parametreleri istege ekliyor
+            Iterator it = reportParams.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry pair = (Map.Entry)it.next();
+//                System.out.println(pair.getKey() + " = " + pair.getValue());
+                _dataJSON.put(pair.getKey().toString(), pair.getValue().toString());
+                it.remove(); // avoids a ConcurrentModificationException
+            }
+
         } catch (JSONException e) {
             ApplicationHelpers.getInstance(_context).handleError(
                     new ApplicationErrorData(ApplicationErrorData.ApplicationErrorType.JSON_ERROR, "", this.getClass().getName() + " : Reports: getGenericReportResult: Hata: JSON hatasi")

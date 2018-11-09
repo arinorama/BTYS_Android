@@ -1,40 +1,25 @@
 package com.besiktasshipyard.mobile.btys.helpers;
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.besiktasshipyard.mobile.btys.MainActivity;
-import com.besiktasshipyard.mobile.btys.R;
 import com.besiktasshipyard.mobile.btys.businessLayer.dataItems.dataCache.DataCache;
-import com.besiktasshipyard.mobile.btys.fragments.reports.ReportListFragment;
 import com.besiktasshipyard.mobile.btys.fragments.reports.ReportsMainActivity;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.type.MapType;
 
-import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -42,7 +27,6 @@ import java.util.Map;
 import java.util.TimeZone;
 
 import fr.arnaudguyon.xmltojsonlib.XmlToJson;
-
 /**
  * Created by aliarin on 14.6.2017.
  */

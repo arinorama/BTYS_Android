@@ -166,7 +166,7 @@ public class RepairProjectsListFragment extends Fragment implements SearchView.O
 
 
     /**
-     * vehicleList datasını DB den yükler
+     * projectList datasını DB den yükler
      */
     private void loadDataFromDB(){
         DataCache _datacache = DataCache.getInstance();
@@ -249,13 +249,13 @@ public class RepairProjectsListFragment extends Fragment implements SearchView.O
         {
 //            ApplicationHelpers.getInstance(getContext()).handleError("VehicleListFragment: hata: onGetRepairProjectsListData - DATA yok");
             ApplicationHelpers.getInstance(_context).handleError(
-                    new ApplicationErrorData(ApplicationErrorData.ApplicationErrorType.EVENT_DATA_ERROR, "", this.getClass().getName() + " hata: onGetUserList")
+                    new ApplicationErrorData(ApplicationErrorData.ApplicationErrorType.EVENT_DATA_ERROR, "", this.getClass().getName() + " hata: onGetRepairProjectsList")
             );
             return;
         }
 
-        //vehicleListDatayi cache e at
-        DataCache.getInstance().set_vehicleListData(event.getData());
+        //projectListDatayi cache e at
+        DataCache.getInstance().set_repairProjectsListData(event.getData());
 
         //vehicleList datasini gosterir
         showRepairProjectsListData(event.getData());

@@ -14,6 +14,8 @@ import com.besiktasshipyard.mobile.btys.businessLayer.dataItems.reports.GenericR
 import com.besiktasshipyard.mobile.btys.businessLayer.dataItems.reports.ReportListData;
 import com.besiktasshipyard.mobile.btys.helpers.ApplicationHelpers;
 
+import java.util.HashMap;
+
 public class ReportsMainActivity extends AppCompatActivity
 implements ReportListFragment.OnListFragmentInteractionListener
            ,GenericReportResultFragment.OnListFragmentInteractionListener
@@ -72,12 +74,12 @@ implements ReportListFragment.OnListFragmentInteractionListener
     //// TODO: 8.11.2018 rapor gösteren metod
     @Override
     public void onListFragmentInteraction(ReportListData.ReportListItem item) {
-        int _reportId = Integer.valueOf(item.id);
-        String _reportTitle = item.title;
-        displayGenericReportPage(_reportId, _reportTitle);
+//        int _reportId = Integer.valueOf(item.id);
+//        String _reportTitle = item.title;
+//        displayGenericReportPage(_reportId, _reportTitle);
     }
 
-    private void displayGenericReportPage(int reportId, String reportTitle){
+    public void displayGenericReportPage(int reportId, String reportTitle){
 
         GenericReportResultFragment fragment = GenericReportResultFragment.newInstance(reportId, true, this, reportTitle);
 
@@ -86,6 +88,19 @@ implements ReportListFragment.OnListFragmentInteractionListener
         FragmentTransaction _fragmentTransaction = _fragmentManager.beginTransaction();
 
         _fragmentTransaction.replace(R.id.reports_main_content_frame, fragment);
+        _fragmentTransaction.addToBackStack(fragment.getClass().getName());
+        _fragmentTransaction.commit();
+    }
+
+    public void displayGenericReportPage(String pid, String aid, HashMap<String,String> reportParams, String reportTitle, int containerViewId){
+
+        GenericReportResultFragment fragment = GenericReportResultFragment.newInstance(true, this, reportTitle, pid, aid, reportParams);
+
+        ApplicationHelpers.hideSoftKeyboard(this);
+        FragmentManager _fragmentManager = getSupportFragmentManager();
+        FragmentTransaction _fragmentTransaction = _fragmentManager.beginTransaction();
+
+        _fragmentTransaction.replace(containerViewId, fragment);
         _fragmentTransaction.addToBackStack(fragment.getClass().getName());
         _fragmentTransaction.commit();
     }

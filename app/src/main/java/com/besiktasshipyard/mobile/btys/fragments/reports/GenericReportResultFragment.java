@@ -22,10 +22,13 @@ import com.besiktasshipyard.mobile.btys.businessLayer.dataItems.reports.GenericR
 import com.besiktasshipyard.mobile.btys.businessLayer.reports.Reports;
 import com.besiktasshipyard.mobile.btys.helpers.ApplicationErrorData;
 import com.besiktasshipyard.mobile.btys.helpers.ApplicationHelpers;
+import com.besiktasshipyard.mobile.btys.helpers.StringHelpers;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.json.JSONArray;
+
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,6 +63,9 @@ public class GenericReportResultFragment extends Fragment implements SearchView.
     TextView _tvAppBarInfo, _tvAppBarReportDate;
 
     String _reportDate = "";
+
+    private static String _pid = "", _aid = "";
+    private static HashMap<String, String> _reportParams = null;
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -72,6 +78,18 @@ public class GenericReportResultFragment extends Fragment implements SearchView.
     public static GenericReportResultFragment newInstance(int reportId, boolean loadDataFromDB, Context context, String reportTitle) {
         _reportId = reportId;
         _reportTitle = reportTitle;
+
+        GenericReportResultFragment fragment = new GenericReportResultFragment();
+
+        return fragment;
+    }
+
+    @SuppressWarnings("unused")
+    public static GenericReportResultFragment newInstance(boolean loadDataFromDB, Context context, String reportTitle, String pid, String aid, HashMap<String, String> reportParams) {
+        _reportTitle = reportTitle;
+        _pid = pid;
+        _aid = aid;
+        _reportParams = reportParams;
 
         GenericReportResultFragment fragment = new GenericReportResultFragment();
 
@@ -107,15 +125,11 @@ public class GenericReportResultFragment extends Fragment implements SearchView.
             recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-            //eger veriler dbden yukleniyorsa verileri bastan yukle
-//            if (_loadDataFromDB) {
-//                //verileri yukle
+            //eger pid gelmişse, o zaman pid, aid ve reportparams ile datayı getir
+            if (!StringHelpers.isEmptyString(_pid))
+                loadDataFromDB(_pid, _aid, _reportParams);
+            else
                 loadDataFromDB();
-//                _loadDataFromDB = false;
-//            }
-//            else{ //veriler dbden yuklenmiyor, fragment yeniden aktif oldu, bunun icin eski durumunu tekrar yukle
-//                restoreFragmentState();
-//            }
 
         }
 
@@ -172,26 +186,26 @@ public class GenericReportResultFragment extends Fragment implements SearchView.
 
 
     /**
-     * ReportList datasını DB den yükler
+     * ReportId sonucunda gelen datayı DB den yükler
      */
     private void loadDataFromDB(){
-//        DataCache _datacache = DataCache.getInstance();
+        //loading ekranı görüntüleniyor
+        ((ReportsMainActivity) getActivity()).showLoadingPanel();
 
-        //eger data, cache de varsa, oradan goster
-//        if (_datacache.get_reportListData() != null){
-//            showReportListData(_datacache.get_reportListData());
-//        }
-        //yoksa yeniden yukle
-//        else {
-            //loading ekranı görüntüleniyor
-            ((ReportsMainActivity) getActivity()).showLoadingPanel();
-
-            Reports _reports = Reports.getInstance(context, recyclerView);
-            _reports.getGenericReportResult(new onGetGenericReportResult(), _reportId);
-
+        Reports _reports = Reports.getInstance(context, recyclerView);
+        _reports.getGenericReportResult(new onGetGenericReportResult(), _reportId);
     }
 
+    /**
+     * ReportId sonucunda gelen datayı DB den yükler
+     */
+    private void loadDataFromDB(String pid, String aid, HashMap<String,String> reportParams){
+        //loading ekranı görüntüleniyor
+        //((ReportsMainActivity) getActivity()).showLoadingPanel();
 
+        Reports _reports = Reports.getInstance(context, recyclerView);
+        _reports.getGenericReportResult(new onGetGenericReportResult(), pid, aid, reportParams);
+    }
 
 
     @Override
@@ -262,7 +276,9 @@ public class GenericReportResultFragment extends Fragment implements SearchView.
 
         //GenericReportResult datasini gosterir
         showGenericReportData(event.getData());
-        ((ReportsMainActivity) getActivity()).hideLoadingPanel();
+
+        if(StringHelpers.isEmptyString(_pid))
+            ((ReportsMainActivity) getActivity()).hideLoadingPanel();
     }
 
     /**
@@ -279,9 +295,10 @@ public class GenericReportResultFragment extends Fragment implements SearchView.
         _adapter = new GenericReportResultRecyclerViewAdapter(_reportData.ITEMS, mListener);
         recyclerView.setAdapter(_adapter);
 
-
-        showRecordCount();
-        showReportDate();
+        if(StringHelpers.isEmptyString(_pid)) {
+            showRecordCount();
+            showReportDate();
+        }
     }
 
     private void showReportDate(){

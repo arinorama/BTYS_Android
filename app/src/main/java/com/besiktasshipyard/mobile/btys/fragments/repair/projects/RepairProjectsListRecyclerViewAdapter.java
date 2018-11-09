@@ -17,6 +17,7 @@ import com.besiktasshipyard.mobile.btys.businessLayer.dataItems.repairProjectsLi
 import com.besiktasshipyard.mobile.btys.helpers.StringHelpers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -57,7 +58,8 @@ public class RepairProjectsListRecyclerViewAdapter extends RecyclerView.Adapter<
         holder.mItem = _repairProjectsList.get(position);
 
         String
-                _projectCode = _repairProjectsList.get(position).project_code
+                _projectId = _repairProjectsList.get(position).id
+                ,_projectCode = _repairProjectsList.get(position).project_code
                 ,_projectDescription = _repairProjectsList.get(position).project_description
                 ,_engineerId = _repairProjectsList.get(position).engineer_id
                 ,_engineer2Id = _repairProjectsList.get(position).engineer_id2
@@ -102,15 +104,39 @@ public class RepairProjectsListRecyclerViewAdapter extends RecyclerView.Adapter<
         else
             holder.tvEngineer2NameSurname.setEnabled(true);
 
-        holder.tvWorkOrderCountTotal.setEnabled(false);
-        holder.tvWorkOrderCountFinished.setEnabled(false);
-        holder.tvMaterialPriceTL.setEnabled(false);
+        if(StringHelpers.isEmptyString(_materialPriceTL))
+            holder.tvMaterialPriceTL.setEnabled(false);
+        else
+            holder.tvMaterialPriceTL.setEnabled(true);
+
+        if(_workOrderCountTotal.equals("0"))
+            holder.tvWorkOrderCountTotal.setEnabled(false);
+        else
+            holder.tvWorkOrderCountTotal.setEnabled(true);
+
+        if(_workOrderCountFinished.equals("0"))
+            holder.tvWorkOrderCountFinished.setEnabled(false);
+        else
+            holder.tvWorkOrderCountFinished.setEnabled(true);
+
+//        holder.tvWorkOrderCountTotal.setEnabled(false);
+//        holder.tvWorkOrderCountFinished.setEnabled(false);
 
         //project engineer tuşuna basınca kişinin sayfası açılsın
-        setOnClick(holder.tvEngineerNameSurname, _engineerId);
+        setOnClick_UserDetails(holder.tvEngineerNameSurname, _engineerId);
 
-        //project engineer tuşuna basınca kişinin sayfası açılsın
-        setOnClick(holder.tvEngineer2NameSurname, _engineer2Id);
+        //production coordinator tuşuna basınca kişinin sayfası açılsın
+        setOnClick_UserDetails(holder.tvEngineer2NameSurname, _engineer2Id);
+
+        //malzeme tusuna basinca malzeme kullnımı generic report açılsın
+        setOnClick_GenericReport(holder.tvMaterialPriceTL, _projectId, "Harcanan Malzemeler", "0");
+
+        //tüm iş emirleri tuşuna basinca ilgili generic report açılsın
+        setOnClick_GenericReport(holder.tvWorkOrderCountTotal, _projectId, "Tum İş Emirleri", "3");
+
+        //bitmiş iş emirleri tuşuna basinca ilgili generic report açılsın
+        setOnClick_GenericReport(holder.tvWorkOrderCountFinished, _projectId, "Tamamlanmış İş Emirleri", "1");
+
 
         /*holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,11 +150,29 @@ public class RepairProjectsListRecyclerViewAdapter extends RecyclerView.Adapter<
         });*/
     }
 
-    private void setOnClick(final Button btn, final String arg){
+    private void setOnClick_UserDetails(final Button btn, final String arg){
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((MainActivity)_context).showUserDetails(arg);
+            }
+        });
+    }
+
+    //harcanan malzemeler tusuna basinca calisir
+    private void setOnClick_GenericReport(final Button btn, final String arg, final String reportTitle, final String aid){
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String _pid = "111000", _aid = aid, _reportTitle = reportTitle;//"Harcanan Malzemeler";
+
+                //rapor parametreleri hashmap icine atiliyor
+                HashMap<String, String> _reportParams = new HashMap<String, String>();
+                _reportParams.put("project_id", arg);
+
+                ((MainActivity)_context).displayGenericReportPage(_pid, _aid, _reportParams, _reportTitle, R.id.content_frame);
+//                ((MainActivity)_context).displayActivity(ReportsMainActivity.class, false, _reportParams);
+//                ((ReportsMainActivity)_context).displayGenericReportPage(_pid, _aid, _reportParams, _reportTitle);
             }
         });
     }
@@ -154,11 +198,8 @@ public class RepairProjectsListRecyclerViewAdapter extends RecyclerView.Adapter<
                 , tvEstimatedStartDate, tvEstimatedFinishDate
                 , tvActualStartDate, tvActualFinishDate
                 , tvStatus
-                , tvWorkOrderCountTotal
-                , tvWorkOrderCountFinished
-                , tvMaterialPriceTL
                 ;
-        public final Button tvEngineerNameSurname, tvEngineer2NameSurname;
+        public final Button tvEngineerNameSurname, tvEngineer2NameSurname, tvMaterialPriceTL, tvWorkOrderCountTotal, tvWorkOrderCountFinished;
 
         public RepairProjectsListItem mItem;
 
@@ -174,9 +215,9 @@ public class RepairProjectsListRecyclerViewAdapter extends RecyclerView.Adapter<
             tvEstimatedFinishDate = (TextView) view.findViewById(R.id.fragment_repair_projects_estimated_finish_date);
             tvActualStartDate = (TextView) view.findViewById(R.id.fragment_repair_projects_actual_start_date);
             tvActualFinishDate = (TextView) view.findViewById(R.id.fragment_repair_projects_actual_finish_date);
-            tvWorkOrderCountTotal = (TextView) view.findViewById(R.id.fragment_repair_projects_work_order_count_total);
-            tvWorkOrderCountFinished = (TextView) view.findViewById(R.id.fragment_repair_projects_work_order_count_finished);
-            tvMaterialPriceTL = (TextView) view.findViewById(R.id.fragment_repair_projects_material_price_tl);
+            tvWorkOrderCountTotal = (Button) view.findViewById(R.id.fragment_repair_projects_work_order_count_total);
+            tvWorkOrderCountFinished = (Button) view.findViewById(R.id.fragment_repair_projects_work_order_count_finished);
+            tvMaterialPriceTL = (Button) view.findViewById(R.id.fragment_repair_projects_material_price_tl);
         }
 
         @Override

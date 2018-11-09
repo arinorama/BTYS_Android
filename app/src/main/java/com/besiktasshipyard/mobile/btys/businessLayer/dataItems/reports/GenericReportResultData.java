@@ -2,18 +2,14 @@ package com.besiktasshipyard.mobile.btys.businessLayer.dataItems.reports;
 
 import android.util.Log;
 
-import com.besiktasshipyard.mobile.btys.helpers.StringHelpers;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class GenericReportResultData {
 
@@ -58,7 +54,12 @@ public class GenericReportResultData {
                 _joListItem = jaListData.getJSONObject(i);
 
                 GenericReportResultItem _GenericReportResultItem = new GenericReportResultItem(_joListItem);
-                reportDate = Integer.valueOf(_joListItem.getString("RAPOR_TARIHI"));
+
+                reportDate = 0 ;
+                // TODO: 8.11.2018 bunu kaldırdım, düzeltip tekrar yerine koy
+//                if (!StringHelpers.isEmptyString(_joListItem.getString("RAPOR_TARIHI")))
+//                    reportDate = Integer.valueOf(_joListItem.getString("RAPOR_TARIHI"));
+
                 addItem(_GenericReportResultItem);
 
             } catch (JSONException e) {
