@@ -104,7 +104,7 @@ public class RepairProjectsListRecyclerViewAdapter extends RecyclerView.Adapter<
         else
             holder.tvEngineer2NameSurname.setEnabled(true);
 
-        if(StringHelpers.isEmptyString(_materialPriceTL))
+        if(_materialPriceTL.equals("-"))
             holder.tvMaterialPriceTL.setEnabled(false);
         else
             holder.tvMaterialPriceTL.setEnabled(true);
